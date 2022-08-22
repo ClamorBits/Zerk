@@ -6,6 +6,9 @@ import sys
 import ctypes
 import random
 
+# Change window title
+ctypes.windll.kernel32.SetConsoleTitleW("Zerk The Assistant")
+
 # Zerk Ascii
 zerk = """                                
 ,-------.              ,--.     
@@ -15,8 +18,8 @@ zerk = """
 `-------' `----'`--'   `--'`--'                                                            
 """
 
-# Change window title
-ctypes.windll.kernel32.SetConsoleTitleW("Zerk The Assistant")
+# Random Username
+randomusername = ['xXKittyGamerXx', 'KarinaRBLX01', 'Frekc', 'EasyGamerLol', 'TheMemeGuy', 'Sheepy Man']
 
 # Replaces time.sleep()
 def delay(seconds):
@@ -48,7 +51,7 @@ print("\n")
 def mainmenu():
     # Menu option. All available actions
     print(zerk)
-    write("[1] About\n[2] Random number generator\n[3] Quit from Zerk\n")
+    write("[1] About\n[2] Random number generator\n[3] Random username generator\n[Q] Quit from Zerk\n")
     # Demands user input
     mainprompt = input("")
     # About option
@@ -94,11 +97,32 @@ def mainmenu():
             clean()
             mainmenu()
 
+    # Random username generator
+    def submainmenuthree():
+        clean()
+        write("Your generated username : " + random.choice(randomusername))
+        # Return or regenerate
+        write("\n\n[1] Regenerate\n[2] Return to main menu\n")
+        submainmenuthreeprompt = input("")
+
+        # Regenerate
+        if submainmenuthreeprompt == "1":
+            clean()
+            submainmenuthree()
+        
+        # Return
+        if submainmenuthreeprompt == "2":
+            clean()
+            mainmenu()
+
     # Quit Zerk
     def QuitZerk():
         clean()
-        write("Shutting down Zerk...\n")
+        write("Shutting down Zerk...\nDon't close the program\n")
         delay(5)
+        clean()
+        write("Thank you for using Zerk! :)\n")
+        delay(3)
         exit
 
     # If they choose "About"
@@ -109,9 +133,20 @@ def mainmenu():
     if mainprompt == "2":
         submainmenutwo()
 
-    # If they want to quit Zerk
+    # If they choose "Random username generator"
     if mainprompt == "3":
+        submainmenuthree()
+
+    # If they want to quit Zerk
+    if mainprompt == "Q" or mainprompt == "q":
         QuitZerk()
+    
+    # If the choices are invalid
+    else:
+        clean()
+        write("\nInvalid choice! Try again.")
+        clean()
+        mainmenu()
 
 # Startup menu
 def startup():
@@ -140,29 +175,45 @@ def startup():
     # If they choose "About"
     if startupprompt == "1":
         substartupone()
+    
+    # If the choices are invalid
+    else:
+        clean()
+        write("\nInvalid choice! Try again.")
+        clean()
+        startup()
 
 def loginprocess():
-    write("Please enter your special code in order to access Zerk : \n")
+    write("Please enter your Zerk ID or type 'Guest' in order to access Zerk : \n")
     loginprocessinput = input("")
     if loginprocessinput == "[REDACTED]":
         clean()
         write("Code accepted, welcome, [REDACTED]\n")
         write("How can I help you today?\n")
-        print("\n")
-        startup()
-    
-    if loginprocessinput == "[REDACTED]":
+        delay(2)
+        clean()
+        mainmenu()
+    elif loginprocessinput == "[REDACTED]":
         clean()
         write("Code accepted, welcome, [REDACTED]\n")
         write("How can I help you today?\n")
-        print("\n")
-        startup()
-
-    if loginprocessinput == "Guest":
+        delay(2)
+        clean()
+        mainmenu()
+    elif loginprocessinput == "[REDACTED]":
+        clean()
+        write("Code accepted, you're signed as an [REDACTED] member\n")
+        write("How can I help you today?\n")
+        delay(2)
+        clean()
+        mainmenu()
+    elif loginprocessinput == "Guest" or loginprocessinput == "guest":
         clean()
         write("You're using Zerk as guest, for better features, have a Zerk Account. Contact ClamorBits for registration")
+        delay(3)
+        clean()
+        write("How can I help you today?\n\n")
         startup()
-
     else:
         clean()
         write("Invalid code! Try again.")
